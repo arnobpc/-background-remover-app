@@ -24,7 +24,7 @@
       const formData = new FormData();
       formData.append('image', file);
 
-      const res = await fetch('https://your-huggingface-space-url.hf.space/run/predict', {
+      const res = await fetch('https://huggingface.co/spaces/arnobpc/background-remover-app', {
         method: 'POST',
         body: formData
       });
