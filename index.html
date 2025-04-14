@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>ব্যাকগ্রাউন্ড রিমুভার</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f0f0f0; text-align: center; }
+    input, button { margin-top: 10px; padding: 10px; font-size: 16px; }
+    img { margin-top: 20px; max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <h1>📸 গ্যাজেট/মোবাইল ব্যাকগ্রাউন্ড রিমুভার</h1>
+  <p>সাদা ব্যাকগ্রাউন্ড সরিয়ে PNG আউটপুট নিন</p>
+  <input type="file" id="fileInput" />
+  <button onclick="uploadImage()">আপলোড ও ব্যাকগ্রাউন্ড রিমুভ করুন</button>
+  <div id="result"></div>
+
+  <script>
+    async function uploadImage() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) return alert("একটি ছবি নির্বাচন করুন।");
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const res = await fetch('https://your-huggingface-space-url.hf.space/run/predict', {
+        method: 'POST',
+        body: formData
+      });
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      document.getElementById('result').innerHTML = `<h3>ফলাফল:</h3><img src="${url}" alt="Processed Image" />`;
+    }
+  </script>
+</body>
+</html>
